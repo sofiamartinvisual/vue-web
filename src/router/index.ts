@@ -10,7 +10,7 @@ export const router = createRouter ({
 
     routes: [
         {
-            path: "/",
+            path: "/Home",
             name: "Home",
             component: Home
         },
@@ -31,7 +31,7 @@ export const router = createRouter ({
         },
         {
             path: '/:pathMatch(.*)*',
-            redirect: '/'
+            redirect: '/Home'
         }
     ],
 });  

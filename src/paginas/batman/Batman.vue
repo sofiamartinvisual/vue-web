@@ -7,6 +7,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { House } from '@lucide/vue';
 
 const scrollToSection = (sectionId: string) => {
  if (sectionId === "#") {
@@ -26,16 +27,16 @@ const scrollToSection = (sectionId: string) => {
 
 <template>
   <div class="batman">
-    <div class="extra-nav">
+<nav class="extra-nav flex flex-col sm:flex-row justify-between px-3">
      <RouterLink to="/">
         <House class="icon-home" />
      </RouterLink>
 
       <NavigationMenu>
-        <NavigationMenuList>
+        <NavigationMenuList class="flex flex-col sm:flex-row">
         <NavigationMenuItem>
             <a href="#" @click.prevent="scrollToSection('#')">
-                <NavigationMenuLink :class=" navigationMenuTriggerStyle()">
+                <NavigationMenuLink :class=" [navigationMenuTriggerStyle(),'text-md hover:bg-purple-500 hover:text-white transition-colors']">
                     Portada
                 </NavigationMenuLink>
             </a>
@@ -70,7 +71,10 @@ const scrollToSection = (sectionId: string) => {
         </NavigationMenuList>
     </NavigationMenu>
 
-</div>
+  </nav>
+  </div>
+  
+  
 
 <header class="titulus">
     <h1>Batman</h1>
@@ -115,7 +119,7 @@ const scrollToSection = (sectionId: string) => {
         </section>
 
 
-  </div>
+
 </template>
 
 <style scoped>
@@ -157,7 +161,7 @@ const scrollToSection = (sectionId: string) => {
 .titulus-img {
   background-size: 100% 100%;
   background-position: center center;
-  background-image: url("../imagines/batman/batman.jpg");
+  background-image: url("/imagines/batman/batman.jpg");
   min-height: 100vh;
 }
 
@@ -250,11 +254,9 @@ const scrollToSection = (sectionId: string) => {
   order: 3;
 }
  
-.notitia{
+.notitia {
 width: 90%;
-display: flex;
-flex-direction: column;
-align-items: center;
+
 }
 
 
@@ -305,9 +307,6 @@ align-items: center;
   }
 
 
-  .notitia > {
-  width: 90%;
-}
 }
 
 </style>

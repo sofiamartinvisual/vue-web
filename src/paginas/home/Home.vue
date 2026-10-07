@@ -5,50 +5,39 @@ import Button from '@/components/ui/button/Button.vue';
 </script>
 
 <template>
-  <div class="fondo-home">
-<h1>
-    <span>Diseño</span> Web y
-    <br> />
-    Apps <span> Interactivas</span>
+  <div class="bg-[#0c0936] h-screen text-white font-sans text-center flex flex-col items-center justify-center gap-12 fixed w-screen overflow-hidden">
+
+<img class="absolute opacity-20 -z-10" src="/imagines/tonitrui.png">
+
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold pb-5 md:pb-20 z-10 transition-all">
+    <span class="text-cyan-400">Diseño</span> Web y
+    <br> 
+    Apps <span class="text-cyan-400"> Interactivas</span>
     
 </h1>
 
-    <div class="botones">
+<p class="text-lg md:text-3xl transition-all">
+  Aprendiendo a crear aplicaciones web
+</p>
 
-      <Button variant="default">
+    <div class="botones">
+      <Button variant="outline"
+              class=" mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">    
         <RouterLink to="/indecision">Sí o No</RouterLink>
       </Button>
-
-       <Button variant="default">
+       <Button variant="outline"
+                class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
         <RouterLink to="/batman">Batman</RouterLink>
       </Button>
-
-       <Button variant="default">
+       <Button variant="outline"
+                class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
         <RouterLink to="/simpsons">Simpsons</RouterLink>
       </Button>
-
-      <Button variant="default">
+      <Button variant="outline"
+              class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
         <a href="https://www.upv.es">UPV</a>
       </Button>
 
     </div>
   </div>
 </template>
-
-<style scoped> 
-
-.fondo-home {
-    background-color: rgb(21, 25, 52);
-    height: 100vh;
-    color: rgb(24,182,246);
-}
-
-.botones > Button {
-background-color: rgb(24,182,246);
-margin-right: 0.5rem;
-}
-
-.botones > Button:hover {
-    background-color: rgba(24,182,246, 0.7);
-}
-</style>
