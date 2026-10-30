@@ -25,6 +25,15 @@ const props = withDefaults(defineProps<Props>(), {
   dragfree: true
 })
 
+const handleImageError = (event: Event) => {
+  const image = event.target as HTMLImageElement
+
+  if (!image.dataset.fallback) {
+    image.dataset.fallback = 'true'
+    image.src = '/imagines/batman/batman.jpg'
+  }
+}
+
 </script>
 
 <template>
@@ -47,6 +56,7 @@ const props = withDefaults(defineProps<Props>(), {
              :src="`${props.basePath}/${ photo }.jpg`"
              class="w-full h-full object-contain"
              :alt="`Imagen ${index + 1} de Batman`"
+             @error="handleImageError"
              />
             </CardContent>
           </Card>

@@ -8,18 +8,74 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
-import { House } from '@lucide/vue';
+import { House, Menu } from '@lucide/vue';
+import { Button } from '@/components/ui/button'
 import { scrollToSection } from '@/utils/ScrollToSection'
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const photos = ["justice", "arkham", "superman", "varios", "villana", "villano", "grupo", "robin", "anne", "joker", "resplandor", "cat", "gafas", "league", "fondoVerde"]
-{
 
+interface Coordinatas {
+  x: number;
+  y: number;
 }
+
+const videreMenu = ref<boolean>(true)
+const mousePosition = ref<Coordinatas>({ x: 0, y: 0 });
+
+  const handleResize = () => {
+        if (window.innerWidth < 640) {
+          videreMenu.value = false;
+        } else {
+          videreMenu.value = true;
+        }
+      }
+
+  onMounted(() => {
+    handleResize(); // Check initial window size
+    window.addEventListener('resize', handleResize);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+  });
+
+  const cumMouseMove = (e: MouseEvent) => {
+
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    mousePosition.value = {
+      x: (centerX - mouseX) * 0.1,
+      y: (centerY - mouseY) * 0.1,
+    };
+  }
+
+ const cumMouseLeave = () => {
+    mousePosition.value = { 
+      x: 0, 
+      y: 0 };
+  }
+
 </script>
 
 <template>
   <div class="batman">
-<nav class="extra-nav flex flex-col sm:flex-row justify-between px-3">
+
+      <Button
+      class="fixed top-2 right-4 z-50 bg-gray-500 sm:hidden"
+      @click="videreMenu = !videreMenu"
+      >
+        <Menu class="size-6" />
+      </Button>
+
+<nav v-if="videreMenu" 
+  class="extra-nav flex flex-col sm:flex-row justify-between px-3">
      <RouterLink to="/">
         <House class="icon-home" />
      </RouterLink>
@@ -28,16 +84,14 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
         <NavigationMenuList class="flex flex-col sm:flex-row">
         <NavigationMenuItem>
             <a href="#" @click.prevent="scrollToSection('#')">
-                <NavigationMenuLink :class=" [navigationMenuTriggerStyle(),'text-md hover:bg-purple-500 hover:text-white transition-colors']">
+                <NavigationMenuLink :class="navigationMenuTriggerStyle()">
                     Portada
                 </NavigationMenuLink>
             </a>
         </NavigationMenuItem>
-
-
                 <NavigationMenuItem>
             <a href="#vehiculis" @click.prevent="scrollToSection('#vehiculis')">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-purple-500 hover:text-white transition-colors']">
+                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
                     Vehiculos
                 </NavigationMenuLink>
             </a>
@@ -45,7 +99,7 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
 
         <NavigationMenuItem>
             <a href="#videre" @click.prevent="scrollToSection('#videre')">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-purple-500 hover:text-white transition-colors']">
+                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
                     Imágenes
                 </NavigationMenuLink>
             </a>
@@ -53,7 +107,7 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
 
         <NavigationMenuItem>
             <a href="#contactus">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-purple-500 hover:text-white transition-colors']">
+                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
                     Contacto
                 </NavigationMenuLink>
             </a>
@@ -70,7 +124,19 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
 
 <header class="titulus">
     <h1>Batman</h1>
-    <div id="titulus-batman"class="titulus-img"></div>
+
+    <div
+    id="titulus-batman"
+    class="titulus-img"
+    @mousemove="cumMouseMove"
+    @mouseleave="cumMouseLeave"
+    :style="{
+      backgroundPositionX: `calc(50% + ${mousePosition.x}px)`, 
+      backgroundPositionY: `calc(50% + ${mousePosition.y}px)`,
+      transition: 'background-position 0.1s ease-out'
+    }"
+    ></div>
+
     <p>Él puede tomar la decision que nadie más puede, la decision correcta</p>
 </header>
 
@@ -126,6 +192,16 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.menu-toggle {
+  display: inline-flex;
+}
+
+@media (min-width: 640px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
 .icon-home {
   color: slateblue;
   width: 3rem;
@@ -144,16 +220,43 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
   position: fixed;
   top: 0;
   width: 11rem;
+  min-height: 12rem;
+  padding-top: 3.5rem;
+  align-items: flex-start;
   border-radius: 0 0 1rem 0;
   z-index: 1;
 }
 
+.mobile-navigation,
+.mobile-menu-list {
+  width: 100%;
+}
+
+.mobile-menu-list {
+  align-items: flex-start;
+  gap: 0;
+}
+
+
 @media (min-width: 640px){
   .extra-nav {
     width: 100%;
+    min-height: 0;
+    padding-top: 0;
+    align-items: center;
     border-radius: 0;
     opacity: 1;
     left: 0;
+  }
+
+  .mobile-navigation,
+  .mobile-menu-list {
+    width: auto;
+  }
+
+  .mobile-menu-list {
+    align-items: center;
+    gap: 0.25rem;
   }
 }
 
@@ -161,7 +264,7 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
   background-size: 100% 100%;
   background-position: center center;
   background-image: url("/imagines/batman/batman.jpg");
-  min-height: 100vh;
+  aspect-ratio: 8/7;
 }
 
 .titulus-img:hover {
@@ -170,7 +273,7 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
 
 .titulus > h1 {
   position: absolute;
-  top: 63%;
+  top: calc(100vw * 0.5);
   width: 100%;
   text-align: center;
   font-size: 5rem; 
@@ -181,7 +284,7 @@ const photos = ["justice", "arkham", "superman", "varios", "villana", "villano",
 
 .titulus > p {
   position: absolute;
-  top: 36%;
+  top: calc(100vw * 0.25);
   width: 100%;
   text-align: center;
   font-size: 2rem;
