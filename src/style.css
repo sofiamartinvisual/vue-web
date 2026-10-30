@@ -14,7 +14,6 @@ body {
 
 @custom-variant dark (&:is(.dark *));
 
-/* stylelint-disable-next-line at-rule-no-unknown */
 @theme inline {
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
