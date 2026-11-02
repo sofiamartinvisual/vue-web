@@ -1,103 +1,46 @@
 <script setup lang="ts">
 import Carrusimaginum from '@/components/ui/Carrusimaginum.vue';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
-
-import { House, Menu } from '@lucide/vue';
-import { Button } from '@/components/ui/button'
 import { scrollToSection } from '@/utils/ScrollToSection'
-import { onMounted, onUnmounted, ref } from 'vue';
 import { useMouseMotion } from '@/composables/useMouseMotion';
+import NavigatorPrimarius from '@/components/ui/NavigatorPrimarius.vue';
 
 const photos = ["justice", "arkham", "superman", "varios", "villana", "villano", "grupo", "robin", "anne", "joker", "resplandor", "cat", "gafas", "league", "fondoVerde"]
 
 const { mousePosition, cumMouseMove, cumMouseLeave } = useMouseMotion();
 
-const videreMenu = ref<boolean>(true)
+const menuItems = [
+  { 
+    label: 'Portada', 
+    href: '#',
+    onClick: () => scrollToSection('#')
+  },
+  { 
+    label: 'Vehiculos', 
+    href: '#vehiculis',
+    onClick: () => scrollToSection('#vehiculis')
+  },
+{ 
+    label: 'Imágenes', 
+    href: '#videre',
+    onClick: () => scrollToSection('#videre')
+  },
+  { 
+    label: 'Contacto', 
+    href: '#contactus',
+    onClick: () => scrollToSection('#contactus')
+  },
 
-
-  const handleResize = () => {
-        if (window.innerWidth < 640) {
-          videreMenu.value = false;
-        } else {
-          videreMenu.value = true;
-        }
-      }
-
-  onMounted(() => {
-    handleResize(); // Check initial window size
-    window.addEventListener('resize', handleResize);
-  });
-
-  onUnmounted(() => {
-    window.removeEventListener('resize', handleResize);
-  });
+]
 
 </script>
 
 <template>
+  
   <div class="batman">
 
-      <Button
-      class="fixed top-2 right-4 z-50 bg-gray-500 sm:hidden"
-      @click="videreMenu = !videreMenu"
-      >
-        <Menu class="size-6" />
-      </Button>
+    <NavigatorPrimarius :Items="menuItems" homeRoute="/" />
 
-<nav v-if="videreMenu" 
-  class="extra-nav flex flex-col sm:flex-row justify-between px-3">
-     <RouterLink to="/">
-        <House class="icon-home" />
-     </RouterLink>
-
-      <NavigationMenu>
-        <NavigationMenuList class="flex flex-col sm:flex-row">
-        <NavigationMenuItem>
-            <a href="#" @click.prevent="scrollToSection('#')">
-                <NavigationMenuLink :class="navigationMenuTriggerStyle()">
-                    Portada
-                </NavigationMenuLink>
-            </a>
-        </NavigationMenuItem>
-                <NavigationMenuItem>
-            <a href="#vehiculis" @click.prevent="scrollToSection('#vehiculis')">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
-                    Vehiculos
-                </NavigationMenuLink>
-            </a>
-             </NavigationMenuItem>
-
-        <NavigationMenuItem>
-            <a href="#videre" @click.prevent="scrollToSection('#videre')">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
-                    Imágenes
-                </NavigationMenuLink>
-            </a>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-            <a href="#contactus">
-                <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md w-full justify-start hover:bg-purple-500 hover:text-white transition-colors']">
-                    Contacto
-                </NavigationMenuLink>
-            </a>
-        </NavigationMenuItem>
-
-
-        </NavigationMenuList>
-    </NavigationMenu>
-
-  </nav>
-  </div>
-  
-  
-
+    
 <header class="titulus">
     <h1>Batman</h1>
 
@@ -161,6 +104,7 @@ const videreMenu = ref<boolean>(true)
           />
 
         </section>
+  </div>
 </template>
 
 <style scoped>
@@ -175,64 +119,6 @@ const videreMenu = ref<boolean>(true)
 @media (min-width: 640px) {
   .menu-toggle {
     display: none;
-  }
-}
-
-.icon-home {
-  color: slateblue;
-  width: 3rem;
-  height: 3rem;
-}
-
-.icon-home:hover {
-  color: white;
-  background-color: slateblue;
-}
-
-.extra-nav {
-  background-color: white;
-  opacity: 0.7;
-  box-shadow: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0;
-  width: 11rem;
-  min-height: 12rem;
-  padding-top: 3.5rem;
-  align-items: flex-start;
-  border-radius: 0 0 1rem 0;
-  z-index: 1;
-}
-
-.mobile-navigation,
-.mobile-menu-list {
-  width: 100%;
-}
-
-.mobile-menu-list {
-  align-items: flex-start;
-  gap: 0;
-}
-
-
-@media (min-width: 640px){
-  .extra-nav {
-    width: 100%;
-    min-height: 0;
-    padding-top: 0;
-    align-items: center;
-    border-radius: 0;
-    opacity: 1;
-    left: 0;
-  }
-
-  .mobile-navigation,
-  .mobile-menu-list {
-    width: auto;
-  }
-
-  .mobile-menu-list {
-    align-items: center;
-    gap: 0.25rem;
   }
 }
 
