@@ -12,6 +12,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { ref } from 'vue';
+import type { DateValue } from 'reka-ui';
+
+const dies = ref<DateValue>()
 
 const photos = ["justice", "arkham", "superman", "varios", "villana", "villano", "grupo", "robin", "anne", "joker", "resplandor", "cat", "gafas", "league", "fondoVerde"]
 
@@ -149,39 +160,50 @@ const menuItems = [
               
          <Label for="cognomen">Apellidos</Label>
          <Input id="cognomen" required />
-
           </div>
 
           <div class="space-y-2">
 
-              <Select>
-    <SelectTrigger>
-      <SelectValue placeholder="Select a fruit" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="apple">
-        Apple
-      </SelectItem>
-      <SelectItem value="banana">
-        Banana
-      </SelectItem>
-      <SelectItem value="blueberry">
-        Blueberry
-      </SelectItem>
-      <SelectItem value="grapes">
-        Grapes
-      </SelectItem>
-      <SelectItem value="pineapple">
-        Pineapple
-      </SelectItem>
-    </SelectContent>
-  </Select>
+          <Select required>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona una misión" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="rescatare">
+                Rescaste de rehenes
+              </SelectItem>
+              <SelectItem value="investigare">
+                Investigación criminal
+              </SelectItem>
+              <SelectItem value="persequi">
+                Persecución de villanos
+              </SelectItem>
+              <SelectItem value="defendere">
+                Defensa de Gotham
+              </SelectItem>
+            </SelectContent>
+          </Select>
 
           </div>
 
           <div class="space-y-2">
+            <Label>Fecha de la misión</Label>
 
-            Poner un calendario para la fecha de la misión
+             <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">
+              <span v-if="dies"> 
+                {{ dies?.day }} {{ dies?.month }} {{ dies?.year }}
+              </span>
+              <span v-else class="text-gray-500">
+                Selecciona una fecha
+              </span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent class="w-auto p-0">
+              <Calendar v-model="dies" />
+            </PopoverContent>
+            </Popover>
 
           </div>
 
