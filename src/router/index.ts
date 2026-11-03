@@ -2,7 +2,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../paginas/home/Home.vue";
 import Batman from "../paginas/batman/Batman.vue";
-import Simpsons from "../paginas/Simpsons/Simpsons.vue";
+import Primus from "../paginas/Simpsons/Primus.vue";
 import Respuesta from "../paginas/Respuesta/Respuesta.vue";
 
 export const router = createRouter ({
@@ -22,7 +22,7 @@ export const router = createRouter ({
         {
             path: "/simpsons",
             name: "Simpsons",
-            component: Simpsons,
+            component: Primus,
         },
         {
             path: '/indecision',
