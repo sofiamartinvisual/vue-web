@@ -8,6 +8,6 @@ import 'vue-sonner/style.css'
 
 <RouterView />
 
-    <SonnerToaster />
+<SonnerToaster />
 
 </template>
