@@ -4,10 +4,11 @@ import Home from "../paginas/home/Home.vue";
 import Batman from "../paginas/batman/Batman.vue";
 import Primus from "../paginas/Simpsons/Primus.vue";
 import Respuesta from "../paginas/Respuesta/Respuesta.vue";
-import { Layout } from "@lucide/vue";
 import Circa from "@/paginas/Simpsons/Circa.vue";
 import Collectione from "@/paginas/Simpsons/Collectione.vue";
 import Character from "@/paginas/Simpsons/Character.vue";
+import Layout from "@/paginas/Simpsons/Layout.vue";
+
 
 export const router = createRouter ({
     history: createWebHashHistory(import.meta.env.BASE_URL),
