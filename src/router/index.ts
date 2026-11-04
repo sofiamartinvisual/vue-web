@@ -29,7 +29,7 @@ export const router = createRouter ({
             children: [
                 {
                 path: "", //simpsons
-                name: "Simpsons",
+                name: "simpsons",
                 component: Primus,
                 },
                 {
@@ -48,12 +48,12 @@ export const router = createRouter ({
                 component: Layout,
                  children: [
                         {
-                            path: "id", //simpsons/gallery/23
+                            path: "", //simpsons/gallery
                             name: "simpsons-characters",
                             component: Collectione
                         },
                         {
-                            path: "id",
+                            path: ":id",
                             name: "simpsons-character",
                             component: Character
                         }

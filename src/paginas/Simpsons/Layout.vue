@@ -9,7 +9,7 @@ const imagoCirca = ref<string>('lisa.png');
 
 <template>
     
-    <div class="grid grid-rows-[auto_lfr_auto] min-h-screen">
+    <div class="grid grid-rows-[auto_1fr_auto] min-h-screen">
 <header class="bg-simpsons-yellow w-full border border-black">
     <div class="flex flex-col md:flex-row justify-between items-center p-3 mx-auto max-w-page md:px-20">
     <Logosimpsons estilus="w-[8rem] h-auto" />
