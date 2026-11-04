@@ -2,10 +2,14 @@
 import { Card, CardContent} from '@/components/ui/card';
 import { computed, ref } from 'vue';
 import { characters } from './data';
+import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
+const router = useRouter();
 
 const inPagina = 6;
 const nuncaPagina = ref(1);
+
 const totalPaginae = Math.ceil(characters.length / inPagina);
 
 const listaSimpsons = computed(() => {
@@ -40,7 +44,10 @@ class=" cursor-pointer w-[220px] h-[240px] hover:bg-simpsons-red hover:text-whit
 v-for="character in listaSimpsons"
 key="i"
 >
-<CardContent class = "flex flex-col items-center justify-center gap-1 w-full px-0">
+<CardContent 
+@click="router.push(`/simpsons/gallery/${character.id}`)"
+class = "flex flex-col items-center justifyc-center gap-1 w-full px-0"
+>
     <img 
     :src="`/imagines/simpsons/${character.imago}`"
     class="w-48 h-42 object-cover object-top mt-2 bg-simpsons-yellow border border-black rounded-t-md"
