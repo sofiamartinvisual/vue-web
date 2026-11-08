@@ -57,30 +57,35 @@ const selectedLabel = computed(() => {
 </script>
 
 <template>
-  <Popover v-model:open="open">
+  <div v-if="character" class="w-full max-w-page md:mx-auto my-8 px-5 md:px-20">
+ <div class=" mb-8">
+
+  <label class="block text-slg font-semibold mb-2 text-gray-800"> Buscar personaje: </label>
+  
+ <Popover v-model:open="open">
     <PopoverTrigger as-child>
       <Button
         variant="outline"
         role="combobox"
         :aria-expanded="open"
-        class="w-50 justify-between"
-      >
+        class="w-50 justify-between bg-red-500 hover:bg-simpsons-yellow text-white border-2 border-black font font-semibold shadow-md"
+    >
         {{ selectedLabel }}
         <ChevronsUpDownIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
     </PopoverTrigger>
-    <PopoverContent class="w-50 p-0">
+    <PopoverContent class="w-50 p-0 border-2 border-black bg-white">
       <Command>
-        <CommandInput placeholder="Search framework..." />
+        <CommandInput placeholder="Buscar..."class="border-2 border-gray-200" />
         <CommandList>
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandEmpty>No se encontró </CommandEmpty>
           <CommandGroup>
             <CommandItem
               v-for="simpson in simpsons"
               :key="simpson.value"
               :value="simpson.value"
               @select="selectCharacter(simpson.value)"
-
+              class="data-[highlighted]:bg-black data-[highlighted]:hover:text-white cursor-pointer"
             >
               <CheckIcon
                 :class="cn(
@@ -95,11 +100,9 @@ const selectedLabel = computed(() => {
       </Command>
     </PopoverContent>
   </Popover>
+  </div>
 
-
-    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8"
-    v-if="character"
-    >
+    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
 <div>
 	<h1 class="titulus-quote"> 
 {{ character.nomen }}
@@ -120,6 +123,9 @@ const selectedLabel = computed(() => {
   <img :src="`/imagines/simpsons/${character.imago}`" alt="" />
 </figure>
     </div>
+
+  </div>
+ 
 
 </template>
 
