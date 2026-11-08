@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { ref } from 'vue';
 
- 
+const dialogApertaEst = ref<boolean>(false)
+const question = ref<string>('') 
+
+
 </script>
 
 <template>
@@ -21,10 +34,33 @@ import Button from '@/components/ui/button/Button.vue';
 </p>
 
     <div class="botones">
-      <Button variant="outline"
-              class=" mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">    
-        <RouterLink to="/indecision">Sí o No</RouterLink>
-      </Button>
+
+       <Dialog
+       :open="dialogApertaEst"
+       @update:open="dialogApertaEst = $event"
+       >
+      <DialogTrigger as-child>
+        <Button variant="domus" class="mr-2">
+          Si o No
+        </Button>
+      </DialogTrigger>
+      <DialogContent class="sm:max-w-106.25 bg-domus-navy text-white border-domus-cyan ">
+        <DialogHeader>
+          <DialogTitle class="text-">Pregúntame</DialogTitle>
+          <DialogDescription class="text-gray-300">
+            No sigas con tus dudas, yo te responderé SÍ o NO
+          </DialogDescription >
+        </DialogHeader>
+        <div class="mt-4">
+          <Input 
+          class="bg-domus-navy-input text-white placeholder:text-gray-400" placeholder="Escribe aquí tu pregunta..." 
+          v-model="question"
+          />
+        </div>
+
+      </DialogContent>
+  </Dialog>
+
        <Button variant="outline"
                 class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
         <RouterLink to="/batman">Batman</RouterLink>
