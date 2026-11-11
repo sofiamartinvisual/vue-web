@@ -9,6 +9,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { useFavoritosStore } from '@/stores/useFavoritos';
+import { Heart } from '@lucide/vue';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -31,6 +34,9 @@ if (textusItinerans.length > 0 && textusItinerans.endsWith('?')) {
 
   }
 }
+
+const favoritosStore = useFavoritosStore();
+const {totalFavoritos} = storeToRefs(favoritosStore);
 
 </script>
 
@@ -79,18 +85,30 @@ if (textusItinerans.length > 0 && textusItinerans.endsWith('?')) {
       </DialogContent>
   </Dialog>
 
-       <Button variant="outline"
-                class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
+             <Button variant="outline"
+              class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md:px-6 md:text-lg">
         <RouterLink to="/batman">Batman</RouterLink>
       </Button>
-       <Button variant="outline"
-                class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
+      <Button variant="outline"
+              class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md:px-6 md:text-lg">
         <RouterLink to="/simpsons">Simpsons</RouterLink>
       </Button>
       <Button variant="outline"
-              class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md-px:6 md:text-lg">
+              class="mr-2 bg-cyan-400 text-white border-2 border-black md:py-5 md:px-6 md:text-lg">
         <a href="https://www.upv.es">UPV</a>
       </Button>
+
+      <Button variant="default"
+              class="relative mr-2 bg-simpsons-red md:py-5 md:px-6 md:text-lg hover:bg-simpsons-red/80 transition-colors">
+        <RouterLink to="/favoritos" class="flex items-center gap-2">
+          <Heart class="w-5 h-5 fill-current" />
+          Favoritos
+          <span class="absolute -top-3 -right-2  w-6.5 h-6.5 bg-yellow-400 text-black text-base font-bold rounded-full flex items-center justify-center">
+            {{ totalFavoritos }}
+          </span>
+        </RouterLink>
+      </Button>
+
 
     </div>
   </div>
